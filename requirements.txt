@@ -1,0 +1,16 @@
+pydantic[email]~=2.6.1
+pymongo~=4.6.1
+fastapi~=0.109.2
+passlib[bcrypt]~=1.7.4
+python-dotenv~=1.0.1
+motor~=3.3.2
+starlette~=0.36.3
+aioboto3~=12.3.0
+botocore~=1.34.34
+uvicorn~=0.27.0.post1
+python-jose[cryptography]~=3.3.0
+python-multipart~=0.0.8
+types-aioboto3[ssm]~=12.3.0
+types-aioboto3[essential]~=12.3.0
+Pillow~=10.2.0
+coloredlogs~=15.0.1
