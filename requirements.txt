@@ -14,3 +14,4 @@ types-aioboto3[ssm]~=12.3.0
 types-aioboto3[essential]~=12.3.0
 Pillow~=10.2.0
 coloredlogs~=15.0.1
+pydantic-settings~=2.1.0
