@@ -15,7 +15,7 @@ async def get_users_request(user: schema.UserFromDb = Depends(auth.get_current_u
 
 async def create_temp_user(user: schema.TempUser) -> dict:
     """Create a temp user and send email verification and stores the otp in database"""
-    if not user.email.endswith("@metex.co") or not user.email.endswith("@immu.ai"):
+    if not (user.email.endswith("@metex.co") or user.email.endswith("@immu.ai")):
         raise HTTPException(status_code=403, detail="Email must be of metex.co or immu.ai.")
     response = await db.create_user(user.name, user.email, user.password)  # Create a temp user
     otp = await db.create_otp(response)
