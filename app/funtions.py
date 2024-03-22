@@ -72,7 +72,7 @@ async def create_txt2img(data: schema.CreateTxt2ImgRequest,
     response = await metexapi.create_txt2img(payload)
     await db.add_request(response.get("id"),user.id)
 
-    return {"request_id": response.get("session_id")}
+    return {"request_id": response.get("session_id"), 'image_data': response.get("image_data")}
 
 async def create_qr(data: schema.CreateQRRequest,
                     user: schema.UserFromDb = Depends(auth.get_current_user)) -> dict:
@@ -82,7 +82,7 @@ async def create_qr(data: schema.CreateQRRequest,
                                     prompt=data.preset)
     response = await metexapi.post_qr_request(payload)
     await db.add_request(response.get("id"),user.id)
-    return {"request_id": response.get("session_id")}
+    return {"request_id": response.get("session_id"), 'image_data': response.get("image_data")}
 
 async def get_qr_preset():
     all_presets = await db.get_qr_presets_db()
