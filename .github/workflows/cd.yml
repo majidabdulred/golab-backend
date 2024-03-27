@@ -30,3 +30,22 @@ jobs:
             git pull origin main
             pip install --no-cache-dir -r requirements.txt
             pm2 restart golab-backend
+    continue-on-error: true
+
+  rollback:
+    needs: deploy
+    if: ${{ failure() }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Rollback EC2 Deployment
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd /home/ubuntu/golab-backend
+            git reset --hard HEAD~1
+            pm2 restart golab-backend

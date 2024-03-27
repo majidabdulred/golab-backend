@@ -7,6 +7,7 @@ from pymongo import MongoClient
 
 load_dotenv()
 
+
 def get_db_client():
     client: MongoClient = AsyncIOMotorClient(getenv("DB_SRV"))
 
@@ -14,5 +15,3 @@ def get_db_client():
     client.get_io_loop = asyncio.get_event_loop
     print("USING REAL DB")
     return client
-
-
