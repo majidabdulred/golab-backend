@@ -7,29 +7,32 @@ from dotenv import load_dotenv
 load_dotenv()
 password = os.getenv("EMAIL_PASSWORD")
 
-async def send_mail(to,name, otp):
+
+async def send_mail(to, name, otp):
     try:
-        msg = MIMEText(create_template(name,otp), 'html')
-        msg['Subject'] = f"Email Verification"
-        msg['From'] = "otp@golabtest.net"
-        msg['To'] = to
+        msg = MIMEText(create_template(name, otp), "html")
+        msg["Subject"] = f"Email Verification"
+        msg["From"] = "otp@golabtest.net"
+        msg["To"] = to
 
         await run_in_threadpool(smtp_send_mail, msg)
 
     except Exception as e:
-        print('Sending mail failed', e)
+        print("Sending mail failed", e)
         raise e
 
 
 def smtp_send_mail(msg):
     """Synchronous code to send an email using smtplib."""
-    s = smtplib.SMTP('smtp.mailgun.org', 587)
-    s.login('otp@golabtest.net', password)  # make sure password is defined or passed
-    s.sendmail(msg['From'], msg['To'], msg.as_string())
+    s = smtplib.SMTP("smtp.mailgun.org", 587)
+    s.login("otp@golabtest.net", password)  # make sure password is defined or passed
+    s.sendmail(msg["From"], msg["To"], msg.as_string())
     s.quit()
 
+
 def create_template(recipient_name, otp_code):
-    return """
+    return (
+        """
 <html>
     <head>
         <style>
@@ -65,9 +68,13 @@ def create_template(recipient_name, otp_code):
     <body>
         <div class="header">OTP Verification</div>
         <div class="content">
-            <p>Hello """+f"{recipient_name}"+""",</p>
+            <p>Hello """
+        + f"{recipient_name}"
+        + """,</p>
             <p>Your OTP code for verification is:</p>
-            <div class="otp">"""+f"{otp_code}"+"""</div>
+            <div class="otp">"""
+        + f"{otp_code}"
+        + """</div>
             <p>Please enter this code to continue with the verification process. This code is valid for 10 minutes.</p>
         </div>
         <div class="footer">
@@ -76,10 +83,14 @@ def create_template(recipient_name, otp_code):
     </body>
 </html>
 """
+    )
+
 
 def test():
     import asyncio
-    asyncio.run(send_mail("abdulmajidred@gmail.com","Abdul Majid",123456))
 
-if __name__ == '__main__':
+    asyncio.run(send_mail("abdulmajidred@gmail.com", "Abdul Majid", 123456))
+
+
+if __name__ == "__main__":
     test()

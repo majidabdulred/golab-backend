@@ -47,4 +47,5 @@ async def post_qr_request(data):
             raise ValueError
         res_json = await res.json()
         logger.info(f"POST QR REQUEST : SESSION : {res_json.get('session_id')}")
+
         return res_json

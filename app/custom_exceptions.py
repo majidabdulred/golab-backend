@@ -1,7 +1,8 @@
 # Create a custom exception class named GradioUrlNotFound
 
+
 class GradioUrlNotFound(Exception):
-    def __init__(self,instance_id=None):
+    def __init__(self, instance_id=None):
         self.message = "NOT_FOUND"
         self.instance_id = instance_id
         super().__init__(self.message)
@@ -14,7 +15,7 @@ class GradioUrlNotFound(Exception):
 
 
 class GradioUrlWrong(Exception):
-    def __init__(self,instance_id):
+    def __init__(self, instance_id):
         self.message = "WRONG_GRADIO_URL"
         self.instance_id = instance_id
         super().__init__(self.message)

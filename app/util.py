@@ -4,7 +4,6 @@ import io
 from PIL import Image
 
 
-
 def set_height_and_width(aspect_ratio):
     if aspect_ratio == "1:1":
         return 512, 512

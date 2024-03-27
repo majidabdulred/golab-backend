@@ -1,32 +1,39 @@
-from pydantic import BaseModel,Field,EmailStr
+from pydantic import BaseModel, Field, EmailStr
 
 from enum import Enum
-from typing import List,Optional,AnyStr
+from typing import List, Optional, AnyStr
 import random
 from bson import ObjectId
+
 
 class CreateQRRequest(BaseModel):
     url: str
     # prompt: str
     preset: str
+
+
 class SendQR1Request(BaseModel):
     user_id: str
-    url : str
+    url: str
     prompt: str
+
+
 class Parameters(BaseModel):
     prompt: str
-    seed: Optional[int]=None
-    batch_size: Optional[int]=None
-    cfg_scale: Optional[int]=None
-    steps : Optional[int]=None
-    width : Optional[int]=None
-    height : Optional[int]=None
-    negative_prompt : Optional[str]=None
+    seed: Optional[int] = None
+    batch_size: Optional[int] = None
+    cfg_scale: Optional[int] = None
+    steps: Optional[int] = None
+    width: Optional[int] = None
+    height: Optional[int] = None
+    negative_prompt: Optional[str] = None
 
 
 class Sendtxt2Img(BaseModel):
-    user_id : str
-    parameters : Parameters
+    user_id: str
+    parameters: Parameters
+
+
 # class Sendtxt2ImgOld(BaseModel):
 #     request_type: str = "custom"
 #     user_id: str
@@ -102,7 +109,7 @@ class NewUser(BaseModel):
 
 
 class UserFromDb(BaseModel):
-    name:Optional[str]="NaN"
+    name: Optional[str] = "NaN"
     id: str = Field(alias="_id")
     email: str
 
