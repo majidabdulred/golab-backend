@@ -81,7 +81,7 @@ async def create_img2img(
         image=image,
     )
     response = await metexapi.create_img2img(payload)
-    await db.add_request(response.get("id"), "user.id")
+    await db.add_request(response.get("id"), user.id)
 
     return {
         "request_id": response.get("session_id"),
