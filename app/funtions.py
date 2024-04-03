@@ -4,7 +4,7 @@ import random
 from app import util
 from app.send_mail import send_mail
 from app import db, schema, auth
-from fastapi import HTTPException, Body, Depends
+from fastapi import HTTPException, Body, Depends, UploadFile, File, Form
 from app import metexapi
 
 
@@ -66,6 +66,26 @@ async def reset_new_password(data: schema.NewPassword):
     """Reset password"""
     await db.reset_new_password(data.otp_id, data.password)
     return {"success": True}
+
+async def create_img2img(
+    image: UploadFile = File(...),
+    url: str = Form(...),
+    prompt: str = Form(...),
+    user: schema.UserFromDb = Depends(auth.get_current_user)
+) -> dict:
+    payload = schema.Sendimg2img(
+        user_id=user.id,
+        prompt= prompt,
+        url=url,
+        image=image,
+    )
+    response = await metexapi.create_img2img(payload)
+    await db.add_request(response.get("id"), "user.id")
+
+    return {
+        "request_id": response.get('session_id'),
+        "image_data": response.get('image_data'),
+    }
 
 
 async def create_txt2img(
