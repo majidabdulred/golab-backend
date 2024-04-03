@@ -67,15 +67,16 @@ async def reset_new_password(data: schema.NewPassword):
     await db.reset_new_password(data.otp_id, data.password)
     return {"success": True}
 
+
 async def create_img2img(
     image: UploadFile = File(...),
     url: str = Form(...),
     prompt: str = Form(...),
-    user: schema.UserFromDb = Depends(auth.get_current_user)
+    user: schema.UserFromDb = Depends(auth.get_current_user),
 ) -> dict:
     payload = schema.Sendimg2img(
         user_id=user.id,
-        prompt= prompt,
+        prompt=prompt,
         url=url,
         image=image,
     )
@@ -83,8 +84,8 @@ async def create_img2img(
     await db.add_request(response.get("id"), "user.id")
 
     return {
-        "request_id": response.get('session_id'),
-        "image_data": response.get('image_data'),
+        "request_id": response.get("session_id"),
+        "image_data": response.get("image_data"),
     }
 
 

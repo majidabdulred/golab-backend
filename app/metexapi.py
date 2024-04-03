@@ -19,16 +19,17 @@ from app.logs import logger
 #         res_json.info(f"SENDTXT2IMG : SESSION : {res_json.get('id')}")
 #         return res_json
 
+
 async def create_img2img(data: schema.Sendimg2img):
     URL = config.BASE_METEX_API_URL + "/v3/user/create-img2img"
 
     file_data = await data.image.read()
     image_data = base64.b64encode(file_data).decode("utf-8")
     temp_data = {
-        'user_id': data.user_id,
+        "user_id": data.user_id,
         "image": str(image_data),
-        'prompt': data.prompt,
-        'url': data.url
+        "prompt": data.prompt,
+        "url": data.url,
     }
 
     async with request(method="POST", url=URL, json=temp_data) as res:

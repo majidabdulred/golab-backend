@@ -18,11 +18,13 @@ class SendQR1Request(BaseModel):
     url: str
     prompt: str
 
+
 class Sendimg2img(BaseModel):
     user_id: str
     image: UploadFile = File()
     prompt: str
     url: str
+
 
 class Parameters(BaseModel):
     prompt: str
@@ -77,9 +79,11 @@ class CreateTxt2ImgRequest(BaseModel):
     num: int
     aspect_ratio: ASPECT_RATIO
 
+
 class Createimg2imgRequest(BaseModel):
     prompt: AnyStr
     url: str
+
 
 class CREATE_AVATAR(BaseModel):
     images: List

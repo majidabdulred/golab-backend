@@ -64,11 +64,13 @@ async def verify_otp(response=Depends(funtions.verify_otp)):
 async def resend_otp(response=Depends(funtions.resend_otp)):
     return response
 
+
 @app.post(
     "/img2img/generate"
 )  # , responses=openapi_docs.create_img2img_demo_response_examples)
 async def create_img2img_demo(response=Depends(funtions.create_img2img)):
     return response
+
 
 @app.post(
     "/txt2img/generate"
