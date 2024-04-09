@@ -1,4 +1,4 @@
-# Backend
+# Golab Backend
 
 ## Installation
 1. Clone this repository
